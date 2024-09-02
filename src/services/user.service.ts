@@ -6,6 +6,7 @@ import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 
 class UserService {
+  // Crea un nuevo usuario después de verificar que el email no esté en uso
   async createUser(user: UserInput): Promise<UserDocument> {
     try {
       const userExist = await this.findByEmail(user.email);
@@ -19,6 +20,7 @@ class UserService {
     }
   }
 
+  // Inicia sesión de un usuario validando email y contraseña
   public async login(userInput: any) {
     try {
       const userExist = await this.findByEmail(userInput.email);
@@ -42,6 +44,7 @@ class UserService {
     }
   }
 
+  // Obtiene todos los usuarios
   async findAll(): Promise<UserDocument[]> {
     try {
       return await UserModel.find();
@@ -50,6 +53,7 @@ class UserService {
     }
   }
 
+  // Busca un usuario por ID
   async findById(id: string): Promise<UserDocument | null> {
     try {
       return await UserModel.findById(id);
@@ -58,6 +62,7 @@ class UserService {
     }
   }
 
+  // Actualiza un usuario por ID
   async updateUser(id: string, user: UserInput): Promise<UserDocument | null> {
     try {
       return await UserModel.findByIdAndUpdate(id, user, {
@@ -68,6 +73,7 @@ class UserService {
     }
   }
 
+  // Elimina un usuario por ID
   async deleteUser(id: string): Promise<UserDocument | null> {
     try {
       return await UserModel.findByIdAndDelete(id);
@@ -76,6 +82,7 @@ class UserService {
     }
   }
 
+  // Busca un usuario por email
   async findByEmail(email: string): Promise<UserDocument | null> {
     try {
       return await UserModel.findOne({ email });
@@ -84,6 +91,7 @@ class UserService {
     }
   }
 
+  // Genera un token JWT para un usuario
   private generateToken(user: UserDocument): string {
     try {
       return jwt.sign(
