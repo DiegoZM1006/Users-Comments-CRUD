@@ -30,6 +30,10 @@ Para configurar el proyecto, es necesario crear un archivo `.env` , al nivel de 
 
 - Se encuentra en la carpeta `/doc`.
 
+### Test postman
+
+- Los test de postman se encuentran en la carpeta `/doc`.
+
 ### Notas Adicionales
 
 - **Seguridad**: No compartas el archivo `.env` en repositorios públicos ni en ningún otro lugar accesible para el público, ya que puede contener información sensible.

@@ -1,0 +1,606 @@
+{
+	"info": {
+		"_postman_id": "660b7eab-47a4-477c-b903-cfd2030e151c",
+		"name": "REST API: Comments and Users NodeJS",
+		"description": "StartFragmentEste proyecto se centra en la implementación de una API RESTful utilizando tecnologías modernas en el ecosistema de Node.js. A lo largo de su desarrollo, se abordaron conceptos como la autenticación, la gestión de usuarios y comentarios, y la estructuración de rutas de manera eficiente y segura. Además, se incluyó la implementación de comentarios anidados, permitiendo la creación de discusiones complejas.EndFragment",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "34680208"
+	},
+	"item": [
+		{
+			"name": "Login user",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\": \"daniel@gmail.com\",\r\n    \"password\": \"12345678\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/users/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"users",
+						"login"
+					]
+				},
+				"description": "Esta API es para autenticarse en nuestra app | INICIAR SESION"
+			},
+			"response": []
+		},
+		{
+			"name": "Create a new user",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImRpZWdvQGdtYWlsLmNvbSIsIm5hbWUiOiJEaWVnbyBNdWVzZXMiLCJ1c2VyX2lkIjoiNjZkMzkwNDM4OTFiMzRlN2IwY2M0YTVkIiwicm9sZSI6InN1cGVyYWRtaW4iLCJpYXQiOjE3MjUyNDEzODcsImV4cCI6MTcyNTI0NDk4N30.padShsfLKu5tB48-cpZDliW3AJgvzBnAdvXa7sZqpHU",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"Luis Pinillos\",\r\n    \"email\": \"pinillos@gmail.com\",\r\n    \"password\": \"12345678\",\r\n    \"role\": \"user\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/users",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"users"
+					]
+				},
+				"description": "Esta API es para crear un nuevo usuario, en un principio debes estar autenticado y autorizado con el rol SUPERADMIN"
+			},
+			"response": []
+		},
+		{
+			"name": "Get all users",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImRpZWdvQGdtYWlsLmNvbSIsIm5hbWUiOiJEaWVnbyBNdWVzZXMiLCJ1c2VyX2lkIjoiNjZkMzkwNDM4OTFiMzRlN2IwY2M0YTVkIiwicm9sZSI6InN1cGVyYWRtaW4iLCJpYXQiOjE3MjUyNDEzODcsImV4cCI6MTcyNTI0NDk4N30.padShsfLKu5tB48-cpZDliW3AJgvzBnAdvXa7sZqpHU",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/api/users",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"users"
+					]
+				},
+				"description": "Esta API es para obtener todos los usuarios registrados en nuestra app"
+			},
+			"response": []
+		},
+		{
+			"name": "Update a user",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImRpZWdvQGdtYWlsLmNvbSIsIm5hbWUiOiJEaWVnbyBNdWVzZXMiLCJ1c2VyX2lkIjoiNjZkMzkwNDM4OTFiMzRlN2IwY2M0YTVkIiwicm9sZSI6InN1cGVyYWRtaW4iLCJpYXQiOjE3MjUyNDEzODcsImV4cCI6MTcyNTI0NDk4N30.padShsfLKu5tB48-cpZDliW3AJgvzBnAdvXa7sZqpHU",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\": \"pinillos@outlook.com\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/users/66d51834af96ed85c31b70a1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"users",
+						"66d51834af96ed85c31b70a1"
+					]
+				},
+				"description": "Esta API es para actualizar un usuario en especifico por su id, en un principio debes estar autenticado y autorizado con el rol SUPERADMIN"
+			},
+			"response": []
+		},
+		{
+			"name": "Delete a user",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImRpZWdvQGdtYWlsLmNvbSIsIm5hbWUiOiJEaWVnbyBNdWVzZXMiLCJ1c2VyX2lkIjoiNjZkMzkwNDM4OTFiMzRlN2IwY2M0YTVkIiwicm9sZSI6InN1cGVyYWRtaW4iLCJpYXQiOjE3MjUyNDE3ODEsImV4cCI6MTcyNTI0NTM4MX0.oP9tv5lqoZ95KJqAOjn25cWsYTX3bGsC63dH5Y6isGA",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/api/users/66d51834af96ed85c31b70a1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"users",
+						"66d51834af96ed85c31b70a1"
+					]
+				},
+				"description": "Esta API es para eliminar un usuario por su id, en un principio debes estar autenticado y autorizado con el rol SUPERADMIN"
+			},
+			"response": []
+		},
+		{
+			"name": "Create a new comment",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImRpZWdvQGdtYWlsLmNvbSIsIm5hbWUiOiJEaWVnbyBNdWVzZXMiLCJ1c2VyX2lkIjoiNjZkMzkwNDM4OTFiMzRlN2IwY2M0YTVkIiwicm9sZSI6InN1cGVyYWRtaW4iLCJpYXQiOjE3MjUyNDE5MzQsImV4cCI6MTcyNTI0NTUzNH0.MOBkAjqFxOtilU8OiGg56sQcAejpuNPqnAW41Ebjsp4",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"content\": \"Esto es un comentario NUEVO DE PRIMER NIVEL\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/comments",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"comments"
+					]
+				},
+				"description": "Esta API es para crear un comentario, en un principio debes estar autenticado"
+			},
+			"response": []
+		},
+		{
+			"name": "Get all comments",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImRhbmllbEBnbWFpbC5jb20iLCJuYW1lIjoiRGFuaWVsIE1vbnRlenVtYSIsInVzZXJfaWQiOiI2NmQzYWEzY2I5ODUwYzU5ZDk0OTU1NjUiLCJyb2xlIjoidXNlciIsImlhdCI6MTcyNTI0NjU2OCwiZXhwIjoxNzI1MjUwMTY4fQ.aYDlQ_rV-X31KS-BSruhdo-c2JsRUJG-nKayS0jvBCQ",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/api/comments",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"comments"
+					]
+				},
+				"description": "Esta API es para obtener todos los comentarios en nuestra app, en un principio debes estar autenticado"
+			},
+			"response": []
+		},
+		{
+			"name": "Update a comment",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImRhbmllbEBnbWFpbC5jb20iLCJuYW1lIjoiRGFuaWVsIE1vbnRlenVtYSIsInVzZXJfaWQiOiI2NmQzYWEzY2I5ODUwYzU5ZDk0OTU1NjUiLCJyb2xlIjoidXNlciIsImlhdCI6MTcyNTI0MzE4NywiZXhwIjoxNzI1MjQ2Nzg3fQ.pMm9HEMjxZ-eOm7MCqSZ-NTYZlTio5X5TIezsL-dyKE",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"content\": \"Esto es una actualizacion de PRIMER NIVEL\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/comments/66d50797381422555273c0d7",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"comments",
+						"66d50797381422555273c0d7"
+					]
+				},
+				"description": "Esta API es para actualizar un comentario por su id, en un principio debes estar autenticado y autorizado ya que debes ser dueño del comentario"
+			},
+			"response": []
+		},
+		{
+			"name": "Delete a comment",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImRhbmllbEBnbWFpbC5jb20iLCJuYW1lIjoiRGFuaWVsIE1vbnRlenVtYSIsInVzZXJfaWQiOiI2NmQzYWEzY2I5ODUwYzU5ZDk0OTU1NjUiLCJyb2xlIjoidXNlciIsImlhdCI6MTcyNTI0Mzk2OCwiZXhwIjoxNzI1MjQ3NTY4fQ.GGzUGtpJKJaiQMc1SQkPCEE1dsG-1bLGTp_U71Pmi-M",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/api/comments/66d50797381422555273c0d7",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"comments",
+						"66d50797381422555273c0d7"
+					]
+				},
+				"description": "Esta API es para eliminar un comentario por su id, en un principio debes estar autenticado y autorizado ya que debes ser dueño del comentario"
+			},
+			"response": []
+		},
+		{
+			"name": "Reaction a comment",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImRhbmllbEBnbWFpbC5jb20iLCJuYW1lIjoiRGFuaWVsIE1vbnRlenVtYSIsInVzZXJfaWQiOiI2NmQzYWEzY2I5ODUwYzU5ZDk0OTU1NjUiLCJyb2xlIjoidXNlciIsImlhdCI6MTcyNTI0NDU1MywiZXhwIjoxNzI1MjQ4MTUzfQ.N_4AoNKLlILgq6XAFxDxpwWvthMAGLY9k0Fc0EivU0M",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"type\": \"love\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/comments/66d4ac057d9b65a087940dd5/reactions",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"comments",
+						"66d4ac057d9b65a087940dd5",
+						"reactions"
+					]
+				},
+				"description": "Esta API es para añadir una reaccion a un comentario, en un principio debes estar autenticado"
+			},
+			"response": []
+		},
+		{
+			"name": "Delete a reaction",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImRhbmllbEBnbWFpbC5jb20iLCJuYW1lIjoiRGFuaWVsIE1vbnRlenVtYSIsInVzZXJfaWQiOiI2NmQzYWEzY2I5ODUwYzU5ZDk0OTU1NjUiLCJyb2xlIjoidXNlciIsImlhdCI6MTcyNTI0NTAwMSwiZXhwIjoxNzI1MjQ4NjAxfQ.FZLoJnQlfGNaYB6RXxv6Yn6teDlBPAxiw5dNYWgjyts",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/api/comments/66d4ac057d9b65a087940dd5/reactions/66d502b6f6d8336858b9e203",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"comments",
+						"66d4ac057d9b65a087940dd5",
+						"reactions",
+						"66d502b6f6d8336858b9e203"
+					]
+				},
+				"description": "Esta API es para añadir una reaccion a un comentario, en un principio debes estar autenticado y ademas ser dueño de la reaccion"
+			},
+			"response": []
+		},
+		{
+			"name": "Create a nested comment",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImRhbmllbEBnbWFpbC5jb20iLCJuYW1lIjoiRGFuaWVsIE1vbnRlenVtYSIsInVzZXJfaWQiOiI2NmQzYWEzY2I5ODUwYzU5ZDk0OTU1NjUiLCJyb2xlIjoidXNlciIsImlhdCI6MTcyNTI0NjczNCwiZXhwIjoxNzI1MjUwMzM0fQ.VbY_yZfN_aELdZ_Vt5LK-hWxDWagqS4XrtTR1PM-moI",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"content\": \"Comentario NIVEL 3 de Daniel\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/comments/66d4ac057d9b65a087940dd5/comments/66d4f2a42a88a46a530ea95f",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"comments",
+						"66d4ac057d9b65a087940dd5",
+						"comments",
+						"66d4f2a42a88a46a530ea95f"
+					]
+				},
+				"description": "Esta API es para crear un comentario anidado (responder a otro comentario), en un principio debes estar autenticado"
+			},
+			"response": []
+		},
+		{
+			"name": "Update a nested comment",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImRhbmllbEBnbWFpbC5jb20iLCJuYW1lIjoiRGFuaWVsIE1vbnRlenVtYSIsInVzZXJfaWQiOiI2NmQzYWEzY2I5ODUwYzU5ZDk0OTU1NjUiLCJyb2xlIjoidXNlciIsImlhdCI6MTcyNTI0NjczNCwiZXhwIjoxNzI1MjUwMzM0fQ.VbY_yZfN_aELdZ_Vt5LK-hWxDWagqS4XrtTR1PM-moI",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"content\": \"Actualizacion de comentario TERCER NIVEL\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/comments/66d4ac057d9b65a087940dd5/comments/66d52d1d989fd5cdc31fc099",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"comments",
+						"66d4ac057d9b65a087940dd5",
+						"comments",
+						"66d52d1d989fd5cdc31fc099"
+					]
+				},
+				"description": "Esta API es para actualizar un comentario anidado (la respuesta de otro comentario), en un principio debes estar autenticado y autorizado ya que debes ser dueño del comentario anidado"
+			},
+			"response": []
+		},
+		{
+			"name": "Delete a nested comment",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImRhbmllbEBnbWFpbC5jb20iLCJuYW1lIjoiRGFuaWVsIE1vbnRlenVtYSIsInVzZXJfaWQiOiI2NmQzYWEzY2I5ODUwYzU5ZDk0OTU1NjUiLCJyb2xlIjoidXNlciIsImlhdCI6MTcyNTI0NzIyMywiZXhwIjoxNzI1MjUwODIzfQ.UYUIaZLK9XHrDv29_jRlr3Rt_Tud_0tU9aJ-btUwBbQ",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/api/comments/66d4ac057d9b65a087940dd5/comments/66d52d1d989fd5cdc31fc099",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"comments",
+						"66d4ac057d9b65a087940dd5",
+						"comments",
+						"66d52d1d989fd5cdc31fc099"
+					]
+				},
+				"description": "Esta API es para eliminar un comentario anidado (la respuesta de otro comentario), en un principio debes estar autenticado y autorizado ya que debes ser dueño del comentario anidado"
+			},
+			"response": []
+		},
+		{
+			"name": "Reaction a nested comment",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImRhbmllbEBnbWFpbC5jb20iLCJuYW1lIjoiRGFuaWVsIE1vbnRlenVtYSIsInVzZXJfaWQiOiI2NmQzYWEzY2I5ODUwYzU5ZDk0OTU1NjUiLCJyb2xlIjoidXNlciIsImlhdCI6MTcyNTI0ODUxNiwiZXhwIjoxNzI1MjUyMTE2fQ.99xwJ2NnUPAt-cr5UK1fkoF2QNrMS1Ldl2ECisxnZbc",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"type\": \"dislike\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/comments/66d4ac057d9b65a087940dd5/comments/66d52c71af96ed85c31b70e2/reactions",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"comments",
+						"66d4ac057d9b65a087940dd5",
+						"comments",
+						"66d52c71af96ed85c31b70e2",
+						"reactions"
+					]
+				},
+				"description": "Esta API es para reaccionar a un comentario anidado (la respuesta de otro comentario), en un principio debes estar autenticado"
+			},
+			"response": []
+		},
+		{
+			"name": "Delete reaction a nested comment",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImRhbmllbEBnbWFpbC5jb20iLCJuYW1lIjoiRGFuaWVsIE1vbnRlenVtYSIsInVzZXJfaWQiOiI2NmQzYWEzY2I5ODUwYzU5ZDk0OTU1NjUiLCJyb2xlIjoidXNlciIsImlhdCI6MTcyNTI0ODcxMSwiZXhwIjoxNzI1MjUyMzExfQ.6kovCm6fKwQRMpDBhTg-jz0MMHk46FtSQnJsviPFg7g",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/api/comments/66d4ac057d9b65a087940dd5/comments/66d52c71af96ed85c31b70e2/reactions/66d5349254ad536624dba970",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"comments",
+						"66d4ac057d9b65a087940dd5",
+						"comments",
+						"66d52c71af96ed85c31b70e2",
+						"reactions",
+						"66d5349254ad536624dba970"
+					]
+				},
+				"description": "Esta API es para eliminar una reaccion a un comentario anidado (la respuesta de otro comentario), en un principio debes estar autenticado y autorizado ya que debes ser dueño de la reaccion."
+			},
+			"response": []
+		}
+	]
+}
