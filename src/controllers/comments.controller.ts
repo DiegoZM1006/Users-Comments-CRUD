@@ -75,7 +75,10 @@ class CommentsController {
 
     public createNestedComment = async (req: Request, res: Response) => {
         try {
-            const comment: CommentDocument | null = await CommentService.createNestedComment(req.params.id, req.params.targetId, req.body);
+            const comment: CommentDocument | null = await CommentService.createNestedComment(req.params.id, req.params.targetId, {
+                ...req.body,
+                author: req.params.idLoggedUser,
+            });
             if (!comment) {
                 return res.status(404).json({ message: "Comment not found" });
             }

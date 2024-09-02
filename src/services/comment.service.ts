@@ -200,6 +200,7 @@ class CommentService {
     
                     const found = await this.deleteReplyRecursively(reply, targetId);
                     if (found) {
+                        comment.reply[i] = reply;
                         return true; // Devuelve true si se ha encontrado y eliminado en algún nivel más profundo
                     }
                 }
