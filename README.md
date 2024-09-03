@@ -168,7 +168,6 @@ Estas rutas gestionan las operaciones relacionadas con los usuarios:
 
 ### Resumen API RESTful
 
-Claro, aquí tienes las rutas organizadas en dos tablas, una para `comments.router.ts` y otra para `users.router.ts`:
 
 ### Rutas de `comments.router.ts`
 
