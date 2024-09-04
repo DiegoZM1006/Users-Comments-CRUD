@@ -9,12 +9,26 @@
 	"item": [
 		{
 			"name": "Login user",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var dataJson = pm.response.json();\r",
+							"let token = dataJson.token;\r",
+							"pm.collectionVariables.set(\"token\", token);"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
 			"request": {
 				"method": "POST",
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"email\": \"daniel@gmail.com\",\r\n    \"password\": \"12345678\"\r\n}",
+					"raw": "{\r\n    \"email\": \"diego@gmail.com\",\r\n    \"password\": \"12345678\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -22,14 +36,11 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:3000/api/users/login",
-					"protocol": "http",
+					"raw": "{{base_url}}/users/login",
 					"host": [
-						"localhost"
+						"{{base_url}}"
 					],
-					"port": "3000",
 					"path": [
-						"api",
 						"users",
 						"login"
 					]
@@ -40,13 +51,27 @@
 		},
 		{
 			"name": "Create a new user",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const response = pm.response.json();\r",
+							"const userId = response.user._id;\r",
+							"pm.collectionVariables.set(\"user_to_update_and_delete\", userId);"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
 			"request": {
 				"auth": {
 					"type": "bearer",
 					"bearer": [
 						{
 							"key": "token",
-							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImRpZWdvQGdtYWlsLmNvbSIsIm5hbWUiOiJEaWVnbyBNdWVzZXMiLCJ1c2VyX2lkIjoiNjZkMzkwNDM4OTFiMzRlN2IwY2M0YTVkIiwicm9sZSI6InN1cGVyYWRtaW4iLCJpYXQiOjE3MjUyNDEzODcsImV4cCI6MTcyNTI0NDk4N30.padShsfLKu5tB48-cpZDliW3AJgvzBnAdvXa7sZqpHU",
+							"value": "{{token}}",
 							"type": "string"
 						}
 					]
@@ -63,14 +88,11 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:3000/api/users",
-					"protocol": "http",
+					"raw": "{{base_url}}/users",
 					"host": [
-						"localhost"
+						"{{base_url}}"
 					],
-					"port": "3000",
 					"path": [
-						"api",
 						"users"
 					]
 				},
@@ -86,7 +108,7 @@
 					"bearer": [
 						{
 							"key": "token",
-							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImRpZWdvQGdtYWlsLmNvbSIsIm5hbWUiOiJEaWVnbyBNdWVzZXMiLCJ1c2VyX2lkIjoiNjZkMzkwNDM4OTFiMzRlN2IwY2M0YTVkIiwicm9sZSI6InN1cGVyYWRtaW4iLCJpYXQiOjE3MjUyNDEzODcsImV4cCI6MTcyNTI0NDk4N30.padShsfLKu5tB48-cpZDliW3AJgvzBnAdvXa7sZqpHU",
+							"value": "{{token}}",
 							"type": "string"
 						}
 					]
@@ -94,14 +116,11 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:3000/api/users",
-					"protocol": "http",
+					"raw": "{{base_url}}/users",
 					"host": [
-						"localhost"
+						"{{base_url}}"
 					],
-					"port": "3000",
 					"path": [
-						"api",
 						"users"
 					]
 				},
@@ -117,7 +136,7 @@
 					"bearer": [
 						{
 							"key": "token",
-							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImRpZWdvQGdtYWlsLmNvbSIsIm5hbWUiOiJEaWVnbyBNdWVzZXMiLCJ1c2VyX2lkIjoiNjZkMzkwNDM4OTFiMzRlN2IwY2M0YTVkIiwicm9sZSI6InN1cGVyYWRtaW4iLCJpYXQiOjE3MjUyNDEzODcsImV4cCI6MTcyNTI0NDk4N30.padShsfLKu5tB48-cpZDliW3AJgvzBnAdvXa7sZqpHU",
+							"value": "{{token}}",
 							"type": "string"
 						}
 					]
@@ -134,16 +153,13 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:3000/api/users/66d51834af96ed85c31b70a1",
-					"protocol": "http",
+					"raw": "{{base_url}}/users/{{user_to_update_and_delete}}",
 					"host": [
-						"localhost"
+						"{{base_url}}"
 					],
-					"port": "3000",
 					"path": [
-						"api",
 						"users",
-						"66d51834af96ed85c31b70a1"
+						"{{user_to_update_and_delete}}"
 					]
 				},
 				"description": "Esta API es para actualizar un usuario en especifico por su id, en un principio debes estar autenticado y autorizado con el rol SUPERADMIN"
@@ -158,7 +174,7 @@
 					"bearer": [
 						{
 							"key": "token",
-							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImRpZWdvQGdtYWlsLmNvbSIsIm5hbWUiOiJEaWVnbyBNdWVzZXMiLCJ1c2VyX2lkIjoiNjZkMzkwNDM4OTFiMzRlN2IwY2M0YTVkIiwicm9sZSI6InN1cGVyYWRtaW4iLCJpYXQiOjE3MjUyNDE3ODEsImV4cCI6MTcyNTI0NTM4MX0.oP9tv5lqoZ95KJqAOjn25cWsYTX3bGsC63dH5Y6isGA",
+							"value": "{{token}}",
 							"type": "string"
 						}
 					]
@@ -166,16 +182,13 @@
 				"method": "DELETE",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:3000/api/users/66d51834af96ed85c31b70a1",
-					"protocol": "http",
+					"raw": "{{base_url}}/users/{{user_to_update_and_delete}}",
 					"host": [
-						"localhost"
+						"{{base_url}}"
 					],
-					"port": "3000",
 					"path": [
-						"api",
 						"users",
-						"66d51834af96ed85c31b70a1"
+						"{{user_to_update_and_delete}}"
 					]
 				},
 				"description": "Esta API es para eliminar un usuario por su id, en un principio debes estar autenticado y autorizado con el rol SUPERADMIN"
@@ -184,13 +197,27 @@
 		},
 		{
 			"name": "Create a new comment",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const response = pm.response.json();\r",
+							"const commentId = response.comment._id;\r",
+							"pm.collectionVariables.set(\"comment_to_update_and_delete\", commentId);"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
 			"request": {
 				"auth": {
 					"type": "bearer",
 					"bearer": [
 						{
 							"key": "token",
-							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImRpZWdvQGdtYWlsLmNvbSIsIm5hbWUiOiJEaWVnbyBNdWVzZXMiLCJ1c2VyX2lkIjoiNjZkMzkwNDM4OTFiMzRlN2IwY2M0YTVkIiwicm9sZSI6InN1cGVyYWRtaW4iLCJpYXQiOjE3MjUyNDE5MzQsImV4cCI6MTcyNTI0NTUzNH0.MOBkAjqFxOtilU8OiGg56sQcAejpuNPqnAW41Ebjsp4",
+							"value": "{{token}}",
 							"type": "string"
 						}
 					]
@@ -207,14 +234,11 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:3000/api/comments",
-					"protocol": "http",
+					"raw": "{{base_url}}/comments",
 					"host": [
-						"localhost"
+						"{{base_url}}"
 					],
-					"port": "3000",
 					"path": [
-						"api",
 						"comments"
 					]
 				},
@@ -230,7 +254,7 @@
 					"bearer": [
 						{
 							"key": "token",
-							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImRhbmllbEBnbWFpbC5jb20iLCJuYW1lIjoiRGFuaWVsIE1vbnRlenVtYSIsInVzZXJfaWQiOiI2NmQzYWEzY2I5ODUwYzU5ZDk0OTU1NjUiLCJyb2xlIjoidXNlciIsImlhdCI6MTcyNTI0NjU2OCwiZXhwIjoxNzI1MjUwMTY4fQ.aYDlQ_rV-X31KS-BSruhdo-c2JsRUJG-nKayS0jvBCQ",
+							"value": "{{token}}",
 							"type": "string"
 						}
 					]
@@ -238,14 +262,11 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:3000/api/comments",
-					"protocol": "http",
+					"raw": "{{base_url}}/comments",
 					"host": [
-						"localhost"
+						"{{base_url}}"
 					],
-					"port": "3000",
 					"path": [
-						"api",
 						"comments"
 					]
 				},
@@ -261,7 +282,7 @@
 					"bearer": [
 						{
 							"key": "token",
-							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImRhbmllbEBnbWFpbC5jb20iLCJuYW1lIjoiRGFuaWVsIE1vbnRlenVtYSIsInVzZXJfaWQiOiI2NmQzYWEzY2I5ODUwYzU5ZDk0OTU1NjUiLCJyb2xlIjoidXNlciIsImlhdCI6MTcyNTI0MzE4NywiZXhwIjoxNzI1MjQ2Nzg3fQ.pMm9HEMjxZ-eOm7MCqSZ-NTYZlTio5X5TIezsL-dyKE",
+							"value": "{{token}}",
 							"type": "string"
 						}
 					]
@@ -278,16 +299,13 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:3000/api/comments/66d50797381422555273c0d7",
-					"protocol": "http",
+					"raw": "{{base_url}}/comments/{{comment_to_update_and_delete}}",
 					"host": [
-						"localhost"
+						"{{base_url}}"
 					],
-					"port": "3000",
 					"path": [
-						"api",
 						"comments",
-						"66d50797381422555273c0d7"
+						"{{comment_to_update_and_delete}}"
 					]
 				},
 				"description": "Esta API es para actualizar un comentario por su id, en un principio debes estar autenticado y autorizado ya que debes ser dueño del comentario"
@@ -295,46 +313,28 @@
 			"response": []
 		},
 		{
-			"name": "Delete a comment",
-			"request": {
-				"auth": {
-					"type": "bearer",
-					"bearer": [
-						{
-							"key": "token",
-							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImRhbmllbEBnbWFpbC5jb20iLCJuYW1lIjoiRGFuaWVsIE1vbnRlenVtYSIsInVzZXJfaWQiOiI2NmQzYWEzY2I5ODUwYzU5ZDk0OTU1NjUiLCJyb2xlIjoidXNlciIsImlhdCI6MTcyNTI0Mzk2OCwiZXhwIjoxNzI1MjQ3NTY4fQ.GGzUGtpJKJaiQMc1SQkPCEE1dsG-1bLGTp_U71Pmi-M",
-							"type": "string"
-						}
-					]
-				},
-				"method": "DELETE",
-				"header": [],
-				"url": {
-					"raw": "http://localhost:3000/api/comments/66d50797381422555273c0d7",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "3000",
-					"path": [
-						"api",
-						"comments",
-						"66d50797381422555273c0d7"
-					]
-				},
-				"description": "Esta API es para eliminar un comentario por su id, en un principio debes estar autenticado y autorizado ya que debes ser dueño del comentario"
-			},
-			"response": []
-		},
-		{
 			"name": "Reaction a comment",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const response = pm.response.json();\r",
+							"const reactionId = response.comment.reaction[0].id;\r",
+							"pm.collectionVariables.set(\"reaction_nivel_1\", reactionId);"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
 			"request": {
 				"auth": {
 					"type": "bearer",
 					"bearer": [
 						{
 							"key": "token",
-							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImRhbmllbEBnbWFpbC5jb20iLCJuYW1lIjoiRGFuaWVsIE1vbnRlenVtYSIsInVzZXJfaWQiOiI2NmQzYWEzY2I5ODUwYzU5ZDk0OTU1NjUiLCJyb2xlIjoidXNlciIsImlhdCI6MTcyNTI0NDU1MywiZXhwIjoxNzI1MjQ4MTUzfQ.N_4AoNKLlILgq6XAFxDxpwWvthMAGLY9k0Fc0EivU0M",
+							"value": "{{token}}",
 							"type": "string"
 						}
 					]
@@ -351,16 +351,13 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:3000/api/comments/66d4ac057d9b65a087940dd5/reactions",
-					"protocol": "http",
+					"raw": "{{base_url}}/comments/{{comment_to_update_and_delete}}/reactions",
 					"host": [
-						"localhost"
+						"{{base_url}}"
 					],
-					"port": "3000",
 					"path": [
-						"api",
 						"comments",
-						"66d4ac057d9b65a087940dd5",
+						"{{comment_to_update_and_delete}}",
 						"reactions"
 					]
 				},
@@ -369,48 +366,28 @@
 			"response": []
 		},
 		{
-			"name": "Delete a reaction",
-			"request": {
-				"auth": {
-					"type": "bearer",
-					"bearer": [
-						{
-							"key": "token",
-							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImRhbmllbEBnbWFpbC5jb20iLCJuYW1lIjoiRGFuaWVsIE1vbnRlenVtYSIsInVzZXJfaWQiOiI2NmQzYWEzY2I5ODUwYzU5ZDk0OTU1NjUiLCJyb2xlIjoidXNlciIsImlhdCI6MTcyNTI0NTAwMSwiZXhwIjoxNzI1MjQ4NjAxfQ.FZLoJnQlfGNaYB6RXxv6Yn6teDlBPAxiw5dNYWgjyts",
-							"type": "string"
-						}
-					]
-				},
-				"method": "DELETE",
-				"header": [],
-				"url": {
-					"raw": "http://localhost:3000/api/comments/66d4ac057d9b65a087940dd5/reactions/66d502b6f6d8336858b9e203",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "3000",
-					"path": [
-						"api",
-						"comments",
-						"66d4ac057d9b65a087940dd5",
-						"reactions",
-						"66d502b6f6d8336858b9e203"
-					]
-				},
-				"description": "Esta API es para añadir una reaccion a un comentario, en un principio debes estar autenticado y ademas ser dueño de la reaccion"
-			},
-			"response": []
-		},
-		{
 			"name": "Create a nested comment",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const response = pm.response.json();\r",
+							"const commentId = response.comment.reply[0].id;\r",
+							"pm.collectionVariables.set(\"comment_nivel_2\", commentId);"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
 			"request": {
 				"auth": {
 					"type": "bearer",
 					"bearer": [
 						{
 							"key": "token",
-							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImRhbmllbEBnbWFpbC5jb20iLCJuYW1lIjoiRGFuaWVsIE1vbnRlenVtYSIsInVzZXJfaWQiOiI2NmQzYWEzY2I5ODUwYzU5ZDk0OTU1NjUiLCJyb2xlIjoidXNlciIsImlhdCI6MTcyNTI0NjczNCwiZXhwIjoxNzI1MjUwMzM0fQ.VbY_yZfN_aELdZ_Vt5LK-hWxDWagqS4XrtTR1PM-moI",
+							"value": "{{token}}",
 							"type": "string"
 						}
 					]
@@ -419,7 +396,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"content\": \"Comentario NIVEL 3 de Daniel\"\r\n}",
+					"raw": "{\r\n    \"content\": \"Nuevo comentario NIVEL 2\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -427,18 +404,15 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:3000/api/comments/66d4ac057d9b65a087940dd5/comments/66d4f2a42a88a46a530ea95f",
-					"protocol": "http",
+					"raw": "{{base_url}}/comments/{{comment_to_update_and_delete}}/comments/{{comment_to_update_and_delete}}",
 					"host": [
-						"localhost"
+						"{{base_url}}"
 					],
-					"port": "3000",
 					"path": [
-						"api",
 						"comments",
-						"66d4ac057d9b65a087940dd5",
+						"{{comment_to_update_and_delete}}",
 						"comments",
-						"66d4f2a42a88a46a530ea95f"
+						"{{comment_to_update_and_delete}}"
 					]
 				},
 				"description": "Esta API es para crear un comentario anidado (responder a otro comentario), en un principio debes estar autenticado"
@@ -453,7 +427,7 @@
 					"bearer": [
 						{
 							"key": "token",
-							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImRhbmllbEBnbWFpbC5jb20iLCJuYW1lIjoiRGFuaWVsIE1vbnRlenVtYSIsInVzZXJfaWQiOiI2NmQzYWEzY2I5ODUwYzU5ZDk0OTU1NjUiLCJyb2xlIjoidXNlciIsImlhdCI6MTcyNTI0NjczNCwiZXhwIjoxNzI1MjUwMzM0fQ.VbY_yZfN_aELdZ_Vt5LK-hWxDWagqS4XrtTR1PM-moI",
+							"value": "{{token}}",
 							"type": "string"
 						}
 					]
@@ -462,7 +436,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"content\": \"Actualizacion de comentario TERCER NIVEL\"\r\n}",
+					"raw": "{\r\n    \"content\": \"Actualizacion de comentario NIVEL 2\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -470,18 +444,15 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:3000/api/comments/66d4ac057d9b65a087940dd5/comments/66d52d1d989fd5cdc31fc099",
-					"protocol": "http",
+					"raw": "{{base_url}}/comments/{{comment_to_update_and_delete}}/comments/{{comment_nivel_2}}",
 					"host": [
-						"localhost"
+						"{{base_url}}"
 					],
-					"port": "3000",
 					"path": [
-						"api",
 						"comments",
-						"66d4ac057d9b65a087940dd5",
+						"{{comment_to_update_and_delete}}",
 						"comments",
-						"66d52d1d989fd5cdc31fc099"
+						"{{comment_nivel_2}}"
 					]
 				},
 				"description": "Esta API es para actualizar un comentario anidado (la respuesta de otro comentario), en un principio debes estar autenticado y autorizado ya que debes ser dueño del comentario anidado"
@@ -489,48 +460,28 @@
 			"response": []
 		},
 		{
-			"name": "Delete a nested comment",
-			"request": {
-				"auth": {
-					"type": "bearer",
-					"bearer": [
-						{
-							"key": "token",
-							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImRhbmllbEBnbWFpbC5jb20iLCJuYW1lIjoiRGFuaWVsIE1vbnRlenVtYSIsInVzZXJfaWQiOiI2NmQzYWEzY2I5ODUwYzU5ZDk0OTU1NjUiLCJyb2xlIjoidXNlciIsImlhdCI6MTcyNTI0NzIyMywiZXhwIjoxNzI1MjUwODIzfQ.UYUIaZLK9XHrDv29_jRlr3Rt_Tud_0tU9aJ-btUwBbQ",
-							"type": "string"
-						}
-					]
-				},
-				"method": "DELETE",
-				"header": [],
-				"url": {
-					"raw": "http://localhost:3000/api/comments/66d4ac057d9b65a087940dd5/comments/66d52d1d989fd5cdc31fc099",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "3000",
-					"path": [
-						"api",
-						"comments",
-						"66d4ac057d9b65a087940dd5",
-						"comments",
-						"66d52d1d989fd5cdc31fc099"
-					]
-				},
-				"description": "Esta API es para eliminar un comentario anidado (la respuesta de otro comentario), en un principio debes estar autenticado y autorizado ya que debes ser dueño del comentario anidado"
-			},
-			"response": []
-		},
-		{
 			"name": "Reaction a nested comment",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const response = pm.response.json();\r",
+							"const reactionId = response.comment.reply[0].reaction[0].id;\r",
+							"pm.collectionVariables.set(\"reaction_nivel_2\", reactionId);"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
 			"request": {
 				"auth": {
 					"type": "bearer",
 					"bearer": [
 						{
 							"key": "token",
-							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImRhbmllbEBnbWFpbC5jb20iLCJuYW1lIjoiRGFuaWVsIE1vbnRlenVtYSIsInVzZXJfaWQiOiI2NmQzYWEzY2I5ODUwYzU5ZDk0OTU1NjUiLCJyb2xlIjoidXNlciIsImlhdCI6MTcyNTI0ODUxNiwiZXhwIjoxNzI1MjUyMTE2fQ.99xwJ2NnUPAt-cr5UK1fkoF2QNrMS1Ldl2ECisxnZbc",
+							"value": "{{token}}",
 							"type": "string"
 						}
 					]
@@ -547,18 +498,15 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:3000/api/comments/66d4ac057d9b65a087940dd5/comments/66d52c71af96ed85c31b70e2/reactions",
-					"protocol": "http",
+					"raw": "{{base_url}}/comments/{{comment_to_update_and_delete}}/comments/{{comment_nivel_2}}/reactions",
 					"host": [
-						"localhost"
+						"{{base_url}}"
 					],
-					"port": "3000",
 					"path": [
-						"api",
 						"comments",
-						"66d4ac057d9b65a087940dd5",
+						"{{comment_to_update_and_delete}}",
 						"comments",
-						"66d52c71af96ed85c31b70e2",
+						"{{comment_nivel_2}}",
 						"reactions"
 					]
 				},
@@ -568,13 +516,25 @@
 		},
 		{
 			"name": "Delete reaction a nested comment",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
 			"request": {
 				"auth": {
 					"type": "bearer",
 					"bearer": [
 						{
 							"key": "token",
-							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImRhbmllbEBnbWFpbC5jb20iLCJuYW1lIjoiRGFuaWVsIE1vbnRlenVtYSIsInVzZXJfaWQiOiI2NmQzYWEzY2I5ODUwYzU5ZDk0OTU1NjUiLCJyb2xlIjoidXNlciIsImlhdCI6MTcyNTI0ODcxMSwiZXhwIjoxNzI1MjUyMzExfQ.6kovCm6fKwQRMpDBhTg-jz0MMHk46FtSQnJsviPFg7g",
+							"value": "{{token}}",
 							"type": "string"
 						}
 					]
@@ -582,25 +542,172 @@
 				"method": "DELETE",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:3000/api/comments/66d4ac057d9b65a087940dd5/comments/66d52c71af96ed85c31b70e2/reactions/66d5349254ad536624dba970",
-					"protocol": "http",
+					"raw": "{{base_url}}/comments/{{comment_to_update_and_delete}}/comments/{{comment_nivel_2}}/reactions/{{reaction_nivel_2}}",
 					"host": [
-						"localhost"
+						"{{base_url}}"
 					],
-					"port": "3000",
 					"path": [
-						"api",
 						"comments",
-						"66d4ac057d9b65a087940dd5",
+						"{{comment_to_update_and_delete}}",
 						"comments",
-						"66d52c71af96ed85c31b70e2",
+						"{{comment_nivel_2}}",
 						"reactions",
-						"66d5349254ad536624dba970"
+						"{{reaction_nivel_2}}"
 					]
 				},
 				"description": "Esta API es para eliminar una reaccion a un comentario anidado (la respuesta de otro comentario), en un principio debes estar autenticado y autorizado ya que debes ser dueño de la reaccion."
 			},
 			"response": []
+		},
+		{
+			"name": "Delete a nested comment",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/comments/{{comment_to_update_and_delete}}/comments/{{comment_nivel_2}}",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"comments",
+						"{{comment_to_update_and_delete}}",
+						"comments",
+						"{{comment_nivel_2}}"
+					]
+				},
+				"description": "Esta API es para eliminar un comentario anidado (la respuesta de otro comentario), en un principio debes estar autenticado y autorizado ya que debes ser dueño del comentario anidado"
+			},
+			"response": []
+		},
+		{
+			"name": "Delete a reaction",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/comments/{{comment_to_update_and_delete}}/reactions/{{reaction_nivel_1}}",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"comments",
+						"{{comment_to_update_and_delete}}",
+						"reactions",
+						"{{reaction_nivel_1}}"
+					]
+				},
+				"description": "Esta API es para añadir una reaccion a un comentario, en un principio debes estar autenticado y ademas ser dueño de la reaccion"
+			},
+			"response": []
+		},
+		{
+			"name": "Delete a comment",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/comments/{{comment_to_update_and_delete}}",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"comments",
+						"{{comment_to_update_and_delete}}"
+					]
+				},
+				"description": "Esta API es para eliminar un comentario por su id, en un principio debes estar autenticado y autorizado ya que debes ser dueño del comentario"
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "token",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "base_url",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "user_to_update_and_delete",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "comment_to_update_and_delete",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "comment_nivel_2",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "reaction_nivel_2",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "reaction_nivel_1",
+			"value": "66d7e1fe424944be3456adef",
+			"type": "string"
 		}
 	]
 }
