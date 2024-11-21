@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import { UserReaction, TypeReaction } from "./user.model";
+import { UserReaction, TypeReaction } from "./user.model.js";
 
 // Definición de la interfaz para la entrada de datos de un comentario
 export interface CommentInput {

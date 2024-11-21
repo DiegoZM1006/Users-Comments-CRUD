@@ -1,2 +1,2 @@
-import { default as UserExistError } from './UserExistError';
-import { default as NotAuthorizedError } from './NotAuthorizedError';
+import { default as UserExistError } from './UserExistError.js';
+import { default as NotAuthorizedError } from './NotAuthorizedError.js';

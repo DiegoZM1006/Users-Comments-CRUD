@@ -1,7 +1,7 @@
-import UserExistError from "../exceptions/UserExistError";
-import NotAuthorizedError from "../exceptions/NotAuthorizedError";
-import { UserDocument, UserInput } from "../models/user.model";
-import UserModel from "../models/user.model";
+import UserExistError from "../exceptions/UserExistError.js";
+import NotAuthorizedError from "../exceptions/NotAuthorizedError.js";
+import { UserDocument, UserInput } from "../models/user.model.js";
+import UserModel from "../models/user.model.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 

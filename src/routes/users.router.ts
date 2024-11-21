@@ -1,8 +1,8 @@
 import express, {Request, Response} from "express";
-import UsersController from "../controllers/users.controller";
-import validateSchema from "../middlewares/validateSchema";
-import UserSchema from "../schemas/user.schema";
-import { auth, authorize } from "../middlewares/auth";
+import UsersController from "../controllers/users.controller.js";
+import validateSchema from "../middlewares/validateSchema.js";
+import UserSchema from "../schemas/user.schema.js";
+import { auth, authorize } from "../middlewares/auth.js";
 
 export const routerUsers = express.Router();
 

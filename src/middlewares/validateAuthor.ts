@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from 'express';
-import Comment from '../models/comment.model';
-import commentService from '../services/comment.service';
+import Comment from '../models/comment.model.js';
+import commentService from '../services/comment.service.js';
 
 // Middleware para validar que el usuario autenticado es el autor del comentario
 export const validateAuthor = async (req: Request, res: Response, next: NextFunction) => {

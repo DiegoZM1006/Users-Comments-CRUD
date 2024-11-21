@@ -11,7 +11,7 @@ import { routerUsers } from "./routes/users.router";
 import { db } from "./config/db";
 
 // Import resolvers
-import { resolvers } from "./graphql/resolver";
+import { resolvers } from "./graphql/resolver.js";
 
 // Initialize the Express application
 const app: Express = express();

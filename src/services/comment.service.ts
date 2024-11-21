@@ -1,4 +1,4 @@
-import CommentModel, { CommentDocument, CommentInput } from "../models/comment.model";
+import CommentModel, { CommentDocument, CommentInput } from "../models/comment.model.js";
 import { UUID } from "mongodb";
 import mongoose from "mongoose";
 

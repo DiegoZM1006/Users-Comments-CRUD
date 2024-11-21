@@ -1,8 +1,8 @@
 import { Request, Response } from "express";
-import { UserDocument, UserInput } from "../models/user.model";
-import UserService from "../services/user.service";
-import UserExistError from "../exceptions/UserExistError";
-import NotAuthorizedError from "../exceptions/NotAuthorizedError";
+import { UserDocument, UserInput } from "../models/user.model.js";
+import UserService from "../services/user.service.js";
+import UserExistError from "../exceptions/UserExistError.js";
+import NotAuthorizedError from "../exceptions/NotAuthorizedError.js";
 
 // Controlador para manejar operaciones CRUD de usuarios y autenticación
 class UsersController {

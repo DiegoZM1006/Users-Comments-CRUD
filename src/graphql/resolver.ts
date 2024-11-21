@@ -1,8 +1,8 @@
-import userService from "../services/user.service";
-import commentService from "../services/comment.service";
-import { UserDocument, UserInput } from "../models/user.model";
-import { CommentDocument, CommentInput } from "../models/comment.model";
-import UserService from "../services/user.service";
+import userService from "../services/user.service.js";
+import commentService from "../services/comment.service.js";
+import { UserDocument, UserInput } from "../models/user.model.js";
+import { CommentDocument, CommentInput } from "../models/comment.model.js";
+import UserService from "../services/user.service.js";
 import {GraphQLError} from "graphql";
 
 

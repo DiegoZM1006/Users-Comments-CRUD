@@ -1,6 +1,6 @@
-import { CommentDocument } from "../models/comment.model";
+import { CommentDocument } from "../models/comment.model.js";
 import { Request, Response } from "express";
-import CommentService from "../services/comment.service";
+import CommentService from "../services/comment.service.js";
 
 // Controlador para manejar operaciones CRUD de comentarios
 class CommentsController {

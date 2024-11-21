@@ -1,13 +1,13 @@
 import express, {Request, Response} from "express";
-import commentsController from "../controllers/comments.controller";
-import { auth, authorize } from "../middlewares/auth";
-import { validateAuthor } from "../middlewares/validateAuthor";
-import { validateAuthorReaction } from "../middlewares/validateAuthorReaction";
-import { validateReplyAuthor } from '../middlewares/validateAuthor';
-import { validateReplyAuthorReaction } from '../middlewares/validateAuthorReaction';
-import validateSchema from "../middlewares/validateSchema";
-import CommentSchema from "../schemas/comment.schema";
-import ReactionSchema from "../schemas/reaction.schema";
+import commentsController from "../controllers/comments.controller.js";
+import { auth, authorize } from "../middlewares/auth.js";
+import { validateAuthor } from "../middlewares/validateAuthor.js";
+import { validateAuthorReaction } from "../middlewares/validateAuthorReaction.js";
+import { validateReplyAuthor } from '../middlewares/validateAuthor.js';
+import { validateReplyAuthorReaction } from '../middlewares/validateAuthorReaction.js';
+import validateSchema from "../middlewares/validateSchema.js";
+import CommentSchema from "../schemas/comment.schema.js";
+import ReactionSchema from "../schemas/reaction.schema.js";
 
 export const routerComments = express.Router();
 

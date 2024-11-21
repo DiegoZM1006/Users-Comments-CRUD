@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
-import Comment from '../models/comment.model';
+import Comment from '../models/comment.model.js';
 
 // Middleware para verificar la propiedad de la reacción
 export const validateAuthorReaction = async (req: Request, res: Response, next: NextFunction) => {
