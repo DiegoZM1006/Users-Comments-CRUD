@@ -12,7 +12,6 @@ type LoginOutput {
     token: String!
 }
 
-
 # Tipos de datos básicos para el usuario
 type User {
     id: ID!

@@ -143,12 +143,12 @@ export const resolvers = {
         
         deleteComment: async (_root: any, params: any, context: any) => {
             try {
-                await validateUserComment(params.input.commentId, context.user.user_id);
+                //await validateUserComment(params.id, context.user.user_id);
                 const comment: CommentDocument | null = await commentService.deleteComment(params.id);
                 if (!comment) throw new GraphQLError("Comentario no encontrado para eliminar", { extensions: { code: "NOT_FOUND" } });
                 return comment;
             } catch (error) {
-                throw new GraphQLError(`Error al eliminar el comentario: ${error}`, { extensions: { code: "INTERNAL_SERVER_ERROR" } });
+                throw new GraphQLError(`Error al eliminar el comentario: ${error}, { extensions: { code: "INTERNAL_SERVER_ERROR" }`);
             }
         },
 

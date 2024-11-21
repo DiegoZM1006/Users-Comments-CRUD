@@ -1,0 +1,49 @@
+# Fragmentos para Usuario
+fragment UserFields on User {
+  id
+  name
+  email
+  role
+  createdAt
+  updatedAt
+  deletedAt
+}
+
+# Fragmentos para Salida de Login
+fragment LoginOutputFields on LoginOutput {
+  email
+  name
+  role
+  token
+}
+
+# Fragmentos para Reacciones de Usuario
+fragment UserReactionFields on UserReaction {
+  id
+  userId
+  type
+}
+
+# Fragmentos para Comentarios
+fragment CommentFields on Comment {
+  id
+  content
+  author
+  reply {
+    id
+    content
+    author
+    createdAt
+    updatedAt
+    deletedAt
+    reaction {
+      ...UserReactionFields
+    }
+  }
+  reaction {
+    ...UserReactionFields
+  }
+  createdAt
+  updatedAt
+  deletedAt
+}
