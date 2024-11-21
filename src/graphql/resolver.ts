@@ -5,7 +5,6 @@ import { CommentDocument, CommentInput } from "../models/comment.model.js";
 import UserService from "../services/user.service.js";
 import {GraphQLError} from "graphql";
 
-
 const validateUserComment = async (commentId: string, userId: string) => {
     const comment = await commentService.getCommentById(commentId);
     if (comment?.author?.toString() !== userId) {
@@ -32,7 +31,7 @@ export const resolvers = {
                 if (!user) throw new GraphQLError("Usuario no encontrado", { extensions: { code: "NOT_FOUND" } });
                 return user;
             } catch (error) {
-                throw new GraphQLError(`Error al obtener el usuario: ${error}`, { extensions: { code: "INTERNAL_SERVER_ERROR" } });
+                throw new GraphQLError(`Error al obtener el usuario: ${error}`, { extensions: { code: "INTERNAL_SERVER_ERROR" } } );
             }
         },
 
@@ -128,27 +127,24 @@ export const resolvers = {
             } catch (error) {
                 throw new GraphQLError(`Error al crear el comentario: ${error}`, { extensions: { code: "INTERNAL_SERVER_ERROR" } });
             }
-        },
-
-        updateComment: async (_root: any, params: any, context: any) => {
-            try {
-                await validateUserComment(params.id, context.user.user_id);
-                const comment: CommentDocument | null = await commentService.updateComment(params.id, params.content);
-                if (!comment) throw new GraphQLError("Comentario no encontrado para actualizar", { extensions: { code: "NOT_FOUND" } });
-                return comment;
-            } catch (error) {
-                throw new GraphQLError(`Error al actualizar el comentario: ${error}`, { extensions: { code: "INTERNAL_SERVER_ERROR" } });
-            }
-        },
-        
+        },        
         deleteComment: async (_root: any, params: any, context: any) => {
             try {
-                //await validateUserComment(params.id, context.user.user_id);
                 const comment: CommentDocument | null = await commentService.deleteComment(params.id);
                 if (!comment) throw new GraphQLError("Comentario no encontrado para eliminar", { extensions: { code: "NOT_FOUND" } });
                 return comment;
             } catch (error) {
-                throw new GraphQLError(`Error al eliminar el comentario: ${error}, { extensions: { code: "INTERNAL_SERVER_ERROR" }`);
+                throw new GraphQLError(`Error al eliminar el comentario: ${error}`, { extensions: { code: "INTERNAL_SERVER_ERROR" } });
+            }
+        },
+
+        updateComment: async (_root: any, params: any, context: any) => {
+            try {
+                const comment: CommentDocument | null = await commentService.updateComment(params.id, params.input);
+                if (!comment) throw new GraphQLError("Comentario no encontrado para actualizar", { extensions: { code: "NOT_FOUND" }});
+                return comment;
+            } catch (error) {
+                throw new GraphQLError(`Error al actualizar el comentario: ${error}`, { extensions: { code: "INTERNAL_SERVER_ERROR" } });
             }
         },
 
@@ -303,9 +299,3 @@ export const resolvers = {
 
     },
 }
-
-
-
-
-
-
