@@ -1,30 +1,75 @@
+
+// Import necessary modules
 import express, { Express, Request, Response } from "express";
-import dotenv from "dotenv";
+import { ApolloServer } from "@apollo/server";
+import { expressMiddleware as apolloMiddleware } from "@apollo/server/express4";
+import { readFile } from "node:fs/promises";
+import jwt from "jsonwebtoken";
+
+// Import routes and database configuration
 import { routerUsers } from "./routes/users.router";
 import { db } from "./config/db";
-import { routerComments } from "./routes/comments.router";
 
+// Import resolvers
+import { resolvers } from "./graphql/resolver";
+
+// Initialize the Express application
 const app: Express = express();
-dotenv.config();
-
 const PORT = process.env.PORT || 8000;
 
-// Middleware para parsear JSON y URL encoded
+// Middleware to parse JSON and URL-encoded bodies
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// Rutas para usuarios y comentarios
+// Mount the user routes
 app.use("/api/users", routerUsers);
-app.use("/api/comments", routerComments);
 
-// Ruta raíz que responde con "Hello World"
+// Load GraphQL schema definition
+const typeDefs = await readFile("./src/graphql/schema.graphql", "utf8");
+
+// Context function for Apollo Server
+async function getContext({ req }: { req: Request }) {
+  const token = req.headers.authorization?.replace("Bearer ", "");
+  const operationName = req.body.operationName;
+
+  if (operationName === "Login") {
+    return {};
+  }
+
+  if (!token) {
+    throw new Error("Unauthorized");
+  }
+
+  try {
+    const decodedToken: any = jwt.verify(
+      token,
+      process.env.JWT_SECRET || "secret"
+    );
+    return { user: decodedToken };
+  } catch (error) {
+    throw new Error("Unauthorized or Token expired");
+  }
+}
+
+// Initialize Apollo Server
+const apolloServer = new ApolloServer({ typeDefs, resolvers });
+await apolloServer.start();
+
+// Use Apollo middleware for GraphQL requests
+app.use("/graphql", apolloMiddleware(apolloServer, { context: getContext }));
+
+// Root route
 app.get("/", (req: Request, res: Response) => {
-  res.send("Hello World");
+  res.send("Hola mundo");
 });
 
-// Conexión a la base de datos y arranque del servidor
-db.then(() => {
-    app.listen(PORT, () => {
-        console.log(`DB running on http://localhost:${PORT}`);
-    });
-})
+// Connect to the database and start the server
+db.then(() =>
+  app.listen(PORT, () => {
+    console.log(`Server running on http://localhost:${PORT}`);
+    console.log(`GraphQL running on http://localhost:${PORT}/graphql`);
+  })
+).catch((err) => {
+  console.error("Database connection failed", err);
+  process.exit(1);
+});

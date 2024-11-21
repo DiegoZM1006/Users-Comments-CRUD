@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from "express";
-import jwt, { TokenExpiredError } from "jsonwebtoken";
+import jwt from "jsonwebtoken";
 
 // Middleware de autenticación
 export const auth = async (req: Request, res: Response, next: NextFunction) => {
@@ -17,7 +17,7 @@ export const auth = async (req: Request, res: Response, next: NextFunction) => {
             next(); // Pasa al siguiente middleware o controlador
         }
     } catch (error) {
-        if (error instanceof TokenExpiredError) {
+        if (error instanceof jwt.TokenExpiredError) {
             // Retorna un error 401 si el token ha expirado
             return res.status(401).json({ message: "Token expired" });
         }

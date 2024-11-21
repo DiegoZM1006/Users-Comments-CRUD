@@ -1,0 +1,99 @@
+# Input para iniciar sesión
+input LoginInput {
+    email: String!
+    password: String!
+}
+
+# Salida del login, incluyendo el token JWT
+type LoginOutput {
+    email: String!
+    name: String!
+    role: String!
+    token: String!
+}
+
+
+# Tipos de datos básicos para el usuario
+type User {
+    id: ID!
+    name: String!
+    email: String!
+    role: String!
+    createdAt: String
+    updatedAt: String
+    deletedAt: String
+}
+
+# Entrada para crear o actualizar un usuario
+input UserInput {
+    name: String!
+    email: String!
+    password: String!
+    role: String!
+}
+
+# Tipo para reacciones de usuario
+type UserReaction {
+    id: ID!
+    userId: ID!
+    type: String
+}
+
+# Entrada para reacciones de usuario
+input UserReactionInput {
+    userId: ID!
+    type: String
+}
+
+# Tipo para comentarios
+type Comment {
+    id: ID!
+    content: String!
+    author: String!
+    reply: [Comment]
+    reaction: [UserReaction]
+    createdAt: String
+    updatedAt: String
+    deletedAt: String
+}
+
+# Entrada para crear o actualizar comentarios
+input CommentInput {
+    content: String!
+    author: String
+    reply: [CommentInput]
+    reaction: [UserReactionInput]
+}
+
+
+# Consultas disponibles
+type Query {
+    getUser(id: ID!): User
+    getUsers: [User!]!
+    getUserByEmail(email: String): User
+    getComments: [Comment!]!
+    getCommentById(id: ID!): Comment
+}
+
+# Mutación para iniciar sesión
+type Mutation {
+    #USUARIO
+    login(input: LoginInput!): LoginOutput!
+    createUser(input: UserInput!): User!
+    updateUser(id: ID!, input: UserInput!): User!
+    deleteUser(id: ID!): User!
+
+    #COMENTARIO
+    createComment(input: CommentInput!): Comment!
+    updateComment(id: ID!, input: CommentInput!): Comment!
+    deleteComment(id: ID!): Comment!
+    reactToComment(commentId: ID!, input: UserReactionInput!): Comment!
+    unreactToComment(commentId: ID!, reactionId: ID!): Comment!
+    addReplyToComment(commentId: ID!, replyId: ID input: CommentInput!): Comment!
+    updateNestedComment(commentId: ID!, replyId: ID input: CommentInput!): Comment!
+    deleteNestedComment(commentId: ID!, replyId: ID!): Comment!
+    reactToNestedComment(commentId: ID!, replyId: ID!, input: UserReactionInput!): Comment!
+    removeReactionFromNestedComment(commentId: ID!, replyId: ID!, reactionId: ID!): Comment!
+}
+
+

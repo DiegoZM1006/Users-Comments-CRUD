@@ -1,4 +1,4 @@
-import CommentModel, { CommentDocument } from "../models/comment.model";
+import CommentModel, { CommentDocument, CommentInput } from "../models/comment.model";
 import { UUID } from "mongodb";
 import mongoose from "mongoose";
 
@@ -343,6 +343,23 @@ class CommentService {
             return parentComment;
         } catch (error) {
             throw error;
+        }
+    }
+
+    async getCommentById(id: string): Promise<CommentInput | null> {
+        try {
+            const comment = await CommentModel.findById(id)
+            .populate("reply") 
+            .populate("reaction");
+    
+            if (!comment) {
+            throw new Error("Comentario no encontrado");
+        }
+    
+            return comment;
+
+        } catch (error) {
+            throw new Error(`Error al obtener el comentario `);
         }
     }
 

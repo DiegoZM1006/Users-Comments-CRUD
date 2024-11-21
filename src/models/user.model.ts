@@ -10,9 +10,9 @@ export interface UserInput {
 
 // Enumeración para los tipos de reacciones
 export enum TypeReaction {
-    LIKE = 'like',     // Reacción de "me gusta"
-    DISLIKE = 'dislike', // Reacción de "no me gusta"
-    LOVE = 'love',     // Reacción de "amor"
+    like = 'like',     // Reacción de "me gusta"
+    dislike = 'dislike', // Reacción de "no me gusta"
+    love = 'love',     // Reacción de "amor"
 }
 
 // Interfaz que define la estructura de una reacción de usuario
