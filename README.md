@@ -8,6 +8,9 @@
 
 ## Descripción del Proyecto
 
+## Deploy
+El proyecto se encuentra desplegado en la siguiente url: https://users-comments-crud-production.up.railway.app/graphql
+
 
 ## Configuración del Proyecto
 
