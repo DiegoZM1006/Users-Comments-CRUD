@@ -8,7 +8,6 @@
 
 ## Descripción del Proyecto
 
-Este proyecto se centra en la implementación de una API RESTful utilizando tecnologías modernas en el ecosistema de Node.js. A lo largo de su desarrollo, se abordaron conceptos como la autenticación, la gestión de usuarios y comentarios, y la estructuración de rutas de manera eficiente y segura. Además, se incluyó la implementación de comentarios anidados, permitiendo la creación de discusiones complejas.
 
 ## Configuración del Proyecto
 
@@ -26,14 +25,6 @@ Para configurar el proyecto, es necesario crear un archivo `.env` , al nivel de 
 
 - **`JWT_SECRET=TMCDiegoZM`**: Especifica la clave secreta utilizada para la firma y verificación de los tokens JWT (JSON Web Tokens). Esta clave es crucial para garantizar la seguridad de los tokens y prevenir la falsificación.
 
-### Modelado de Base de datos
-
-- Se encuentra en la carpeta `/doc`.
-
-### Test postman
-
-- Los test de postman se encuentran en la carpeta `/doc`.
-
 ### Notas Adicionales
 
 - **Seguridad**: No compartas el archivo `.env` en repositorios públicos ni en ningún otro lugar accesible para el público, ya que puede contener información sensible.
@@ -42,17 +33,20 @@ Para configurar el proyecto, es necesario crear un archivo `.env` , al nivel de 
 
 Este archivo de configuración es esencial para el funcionamiento adecuado del proyecto, por lo que es importante que ajustes y mantengas estas variables de entorno según tus requisitos específicos.
 
+
 ### Dependencias de Producción
 
 ```json
 "dependencies": {
+    "@apollo/server": "^4.11.2",
     "bcrypt": "^5.1.1",
+    "compunet-3": "file:",
     "dotenv": "^16.4.5",
     "express": "^4.19.2",
     "jsonwebtoken": "^9.0.2",
     "mongodb": "^6.8.0",
     "mongoose": "^8.5.2",
-    "nodeapp": "file:",
+    "yarn": "^1.22.22",
     "zod": "^3.23.8"
 }
 ```
@@ -62,14 +56,18 @@ Este archivo de configuración es esencial para el funcionamiento adecuado del p
 ```json
 "devDependencies": {
     "@types/bcrypt": "^5.0.2",
+    "@types/cors": "^2.8.17",
     "@types/express": "^4.17.21",
     "@types/jsonwebtoken": "^9.0.6",
-    "@types/node": "^22.1.0",
+    "@types/node": "^22.0.2",
     "nodemon": "^3.1.4",
     "ts-node": "^10.9.2",
-    "typescript": "^5.5.4"
+    "tsx": "^4.19.2",
+    "typescript": "^5.6.3"
 }
 ```
+
+
 
 ### Instalación
 
@@ -91,7 +89,7 @@ Para ejecutar el proyecto, siga estos pasos:
 4. **Iniciar el servidor:** Ejecute el siguiente comando para iniciar el servidor en modo de desarrollo:
 
    ```bash
-   npx yarn dev
+   npm run dev
    ```
 
 > **Nota:** Si se encuentra con un error relacionado con paquetes no encontrados, puede ser necesario ejecutar nuevamente `npm install` para asegurarse de que todos los paquetes requeridos estén instalados.
@@ -129,76 +127,166 @@ Para asegurar la correcta ejecución de las operaciones y la protección de los 
 
 Estas medidas garantizan que el sistema opere de manera segura y eficiente, respetando los permisos y protegiendo los datos de los usuarios.
 
-### Rutas de Comentarios (`comments.router.ts`)
+---
 
-Estas rutas gestionan todas las operaciones relacionadas con los comentarios en la API:
+### Algunas Consultas
 
-- `GET /` - Obtener todos los comentarios.
-- `POST /` - Crear un nuevo comentario.
-- `PUT /:id` - Actualizar un comentario existente.
-- `DELETE /:id` - Eliminar un comentario.
+### **Usuarios**
+1. Obtener un usuario por ID:
+   ```graphql
+   query {
+     getUser(id: "673e8a32d4c6f1d3fd573ff6") {
+       id
+       name
+       email
+       role
+     }
+   }
+   ```
 
-#### Reacciones a Comentarios
+2. Obtener todos los usuarios:
+   ```graphql
+   query {
+     getUsers {
+       id
+       name
+       email
+       role
+     }
+   }
+   ```
 
-- `POST /:id/reactions` - Reaccionar a un comentario.
-- `DELETE /:id/reactions/:reactionId` - Quitar una reacción de un comentario.
+### **Comentarios**
+1. Obtener todos los comentarios:
+   ```graphql
+   query {
+     getComments {
+       id
+       content
+       author
+       createdAt
+     }
+   }
+   ```
 
-#### Comentarios Anidados
-
-- `POST /:id/comments/:targetId` - Crear un comentario anidado.
-- `PUT /:id/comments/:targetId` - Actualizar un comentario anidado.
-- `DELETE /:id/comments/:targetId` - Eliminar un comentario anidado.
-
-#### Reacciones a Comentarios Anidados
-
-- `POST /:id/comments/:targetId/reactions` - Reaccionar a un comentario anidado.
-- `DELETE /:id/comments/:targetId/reactions/:reactionId` - Quitar una reacción de un comentario anidado.
-
-### Rutas de Usuarios (`users.router.ts`)
-
-Estas rutas gestionan las operaciones relacionadas con los usuarios:
-
-- `POST /login` - Iniciar sesión.
-- `GET /` - Obtener todos los usuarios.
-- `POST /` - Crear un nuevo usuario.
-- `PUT /:id` - Actualizar un usuario existente.
-- `DELETE /:id` - Eliminar un usuario.
+2. Obtener un comentario por ID:
+   ```graphql
+   query {
+     getCommentById(id: "673ea7b96bda5fd8da81e431") {
+       id
+       content
+       author
+       reply {
+         id
+         content
+       }
+     }
+   }
+   ```
 
 ---
 
-### Resumen API RESTful
+## **Mutaciones principales**
+
+### **Usuarios**
+1. Crear usuario:
+   ```graphql
+   mutation {
+     createUser(input: {
+       name: "Juan Perez"
+       email: "juan@example.com"
+       password: "securepassword"
+       role: "user"
+     }) {
+       id
+       name
+       email
+       role
+     }
+   }
+   ```
+
+2. Iniciar sesión:
+   ```graphql
+   mutation {
+     login(input: {
+       email: "juan@example.com"
+       password: "securepassword"
+     }) {
+       token
+       name
+       role
+     }
+   }
+   ```
+
+### **Comentarios**
+1. Crear comentario:
+   ```graphql
+   mutation {
+  createComment(input: {
+    content: "Este es un comentario de prueba2"
+    author: "id_usuario"
+    reply: [] 
+    reaction: []   
+  }) {
+    id
+    content
+    author
+    createdAt
+  }
+   ```
+
+2. Responder a un comentario:
+   ```graphql
+   mutation {
+  addReplyToComment(commentId: "id_comentario", input: {
+    content: "Esta es una respuesta al comentario."
+    author: "id_autor" 
+  }) {
+    id
+    content
+    reply {
+      id
+      content
+      author
+      createdAt
+    }
+  }
+   }
+   ```
 
 
-### Rutas de `comments.router.ts`
 
-| NAME                    | PATH                                            | HTTP VERB | PURPOSE                     |
-| ----------------------- | ----------------------------------------------- | --------- | --------------------------- |
-| Get Comments            | `/`                                             | GET       | GET ALL COMMENTS            |
-| Create Comment          | `/`                                             | POST      | CREATE A NEW COMMENT        |
-| Update Comment          | `/:id`                                          | PUT       | UPDATE A COMMENT            |
-| Delete Comment          | `/:id`                                          | DELETE    | DELETE A COMMENT            |
-| React to Comment        | `/:id/reactions`                                | POST      | REACT TO A COMMENT          |
-| Unreact Comment         | `/:id/reactions/:reactionId`                    | DELETE    | UNREACT TO A COMMENT        |
-| Create Nested Comment   | `/:id/comments/:targetId`                       | POST      | CREATE A NESTED COMMENT     |
-| Update Nested Comment   | `/:id/comments/:targetId`                       | PUT       | UPDATE A NESTED COMMENT     |
-| Delete Nested Comment   | `/:id/comments/:targetId`                       | DELETE    | DELETE A NESTED COMMENT     |
-| React to Nested Comment | `/:id/comments/:targetId/reactions`             | POST      | REACT TO A NESTED COMMENT   |
-| Unreact Nested Comment  | `/:id/comments/:targetId/reactions/:reactionId` | DELETE    | UNREACT TO A NESTED COMMENT |
+   2. Reaccionar a un comentario:
+   ```graphql
+   mutation {
+    reactToComment(commentId: "id_comentario", input: {
+      userId: "12345" # ID del usuario que está reaccionando
+      type: "like"    # Tipo de reacción (p. ej., "like", "love", "dislike")
+    }) {
+      id
+      content
+      reaction {
+        id
+        userId
+        type
+      }
+    }
+  }
+   ```
 
-### Rutas de `users.router.ts`
+---
 
-| NAME        | PATH     | HTTP VERB | PURPOSE           |
-| ----------- | -------- | --------- | ----------------- |
-| Login       | `/login` | POST      | LOGIN             |
-| Get Users   | `/`      | GET       | GET ALL USERS     |
-| Create User | `/`      | POST      | CREATE A NEW USER |
-| Update User | `/:id`   | PUT       | UPDATE A USER     |
-| Delete User | `/:id`   | DELETE    | DELETE A USER     |
 
 ## Dificultades Encontradas
 
-Una de las mayores dificultades que enfrentamos durante el desarrollo fue la implementación de hilos de discusión a través de comentarios anidados. Dado que los comentarios se almacenan de manera embebida, fue necesario desarrollar funciones recursivas para añadir, actualizar o eliminar comentarios hijos sin comprometer la integridad del comentario padre. Este enfoque presentó desafíos técnicos significativos, pero al final se logró una implementación funcional y eficiente.
+1. **Validaciones complejas**: Implementar validaciones como la verificación de autoría en comentarios anidados fue desafiante.
+2. **Autorización**: Gestionar los permisos en base a roles y garantizar que ciertas mutaciones solo puedan ser ejecutadas por usuarios con privilegios específicos.
+3. **Optimización**: El manejo de comentarios anidados y sus reacciones demandó ajustes para evitar sobrecargar la base de datos.
+4. **Implementación inicial con GraphQL**: Enfrentar la implementación de una API GraphQL desde cero fue desafiante, debido al poco conocimiento previo del equipo en esta tecnología. Este reto implicó aprender y aplicar conceptos como resolvers, esquemas, y validaciones específicas de GraphQL.
 
 ## Conclusión
 
-Este proyecto no solo reforzó nuestro conocimiento en el desarrollo de APIs RESTful, sino que también nos permitió explorar soluciones avanzadas para manejar estructuras de datos complejas, como los comentarios anidados. A pesar de los desafíos, el resultado es una API robusta y flexible que puede adaptarse a múltiples casos de uso en aplicaciones web modernas.
+El proyecto destacó por un desarrollo colaborativo eficiente, donde roles claros permitieron implementar funcionalidades robustas como la gestión de usuarios, comentarios anidados y reacciones. La configuración segura con herramientas como `dotenv` y la integración de JWT garantizó un sistema protegido y funcional. A pesar de la falta de experiencia inicial con GraphQL, el equipo superó desafíos técnicos, adquiriendo conocimientos clave y sentando una base sólida para futuras mejoras, como la implementación de paginación, pruebas automatizadas y un manejo más avanzado de errores. La experiencia demuestra capacidad de adaptación y crecimiento frente a nuevas tecnologías.
+
