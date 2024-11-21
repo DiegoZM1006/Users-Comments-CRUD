@@ -7,8 +7,8 @@ import { readFile } from "node:fs/promises";
 import jwt from "jsonwebtoken";
 
 // Import routes and database configuration
-import { routerUsers } from "./routes/users.router";
-import { db } from "./config/db";
+import { routerUsers } from "./routes/users.router.js";
+import { db } from "./config/db.js";
 
 // Import resolvers
 import { resolvers } from "./graphql/resolver.js";
